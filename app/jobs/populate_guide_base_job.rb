@@ -90,10 +90,11 @@ def update_all_db(existing_user, email, password, first_name, last_name, birth, 
 end
 
 def update_country_offering(guide, countries)
-  guide.country_offerings.each do |country_offering|
-    countries.each do |c|
-      country = Country.find_by(name: c)
-      country_offering.update!(
+  countries.each do |c|
+    country = Country.find_by(name: c)
+    country_offering = CountryOffering.where(guide_id: guide.id, country_id: country.id).first
+    unless country_offering.nil?
+      country_offering.update(
         guide_id: guide.id,
         country_id: country.id
       )
@@ -103,9 +104,10 @@ end
 
 
 def update_speciality_offering(guide, specialities)
-  guide.guide_specialities.each do |guide_specialitie|
-    specialities.each do |s|
-      speciality = Speciality.find_by(name: s)
+  specialities.each do |s|
+    speciality = Speciality.find_by(name: s)
+    guide_specialitie = GuideSpeciality.where(guide_id: guide.id, speciality_id: speciality.id).first
+    unless guide_specialitie.nil?
       guide_specialitie.update!(
         guide_id: guide.id,
         speciality_id: speciality.id
@@ -115,13 +117,14 @@ def update_speciality_offering(guide, specialities)
 end
 
 def update_spoken_language(guide, languages)
-  guide.spoken_languages.each do |spoken_language|
-    languages.each do |l|
-      language = Language.find_by(name: l.strip)
-      spoken_language.update!(
-        guide_id: guide.id,
-        language_id: language.id
-      )
+  languages.each do |l|
+    language = Language.find_by(name: l.strip)
+    spoken_language = SpokenLanguage.where(guide_id: guide.id, language_id: language.id).first
+    unless spoken_language.nil?
+        spoken_language.update!(
+          guide_id: guide.id,
+          language_id: language.id
+        )
     end
   end
 end
