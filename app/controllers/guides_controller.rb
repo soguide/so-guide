@@ -16,7 +16,7 @@ skip_before_action :authenticate_user!, only: [:show, :index, :upload_guides, :p
     xlsx = Roo::Excelx.new(filepath)
     xlsx.default_sheet = xlsx.sheets.first
     csv = xlsx.to_csv
-    PopulateGuideBaseJob.perform_now(csv)
+    PopulateGuideBaseJob.perform_later(csv)
     redirect_to upload_guides_path, notice: 'Guide en cours de chargement :)'
   end
 end

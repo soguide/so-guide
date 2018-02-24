@@ -303,7 +303,7 @@ DEPENDENCIES
   cloudinary
   devise
   faker
-  figaro
+  figaro (~> 1.1, >= 1.1.1)
   font-awesome-sass
   friendly_id (~> 5.1.0)
   jbuilder (~> 2.0)
