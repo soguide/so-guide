@@ -46,35 +46,142 @@ class PopulateGuideBaseJob < ActiveJob::Base
             type_third = row[32]
             partners = row[33]
 
-            user = create_user(email, password, first_name, last_name, birth, gender)
-            organization = create_organization(orga, url, facebook_profil_url, facebook_profil_page, license)
-            contact_info = create_guide_contact_info(mobile, xp, main_review, secondary_email)
-            guide = create_guide(id, organization, contact_info, user, photo, description, state)
-
-            #Create countries assosiations
-            countries = []
-            countries << country_first
-            countries << country_second unless country_second.nil?
-            create_country_offering(guide, countries)
-
-            #Create speciality assosiations
-            specialities = []
-            specialities << type
-            specialities << type_second unless type_second.nil?
-            specialities << type_third unless type_third.nil?
-            create_speciality_offering(guide, specialities)
-
-            #Create language assosiations
-            languages = []
-            languages << langue
-            languages << langue_second unless langue_second.nil?
-            languages << langue_third unless langue_third.nil?
-            languages << langue_fourth unless langue_fourth.nil?
-            languages << langue_fifth unless langue_fifth.nil?
-            create_spoken_language(guide, languages)
+            if User.find_by(:xlsx_id => id).nil?
+                create_row_on_db(id, email, password, first_name, last_name, birth, gender, orga, url, facebook_profil_url, facebook_profil_page, license,
+                  mobile, xp, main_review, secondary_email, photo, description, state, country_first, country_second, langue, langue_second, langue_third,
+                  langue_fourth, langue_fifth, type, type_second, type_third)
+              else
+                existing_user = User.find(id)
+                update_all_db(existing_user, email, password, first_name, last_name, birth, gender, orga, url, facebook_profil_url, facebook_profil_page, license,
+                  mobile, xp, main_review, secondary_email, photo, description, state, country_first, country_second, langue, langue_second, langue_third,
+                  langue_fourth, langue_fifth, type, type_second, type_third)
+              end
       end
     end
   end
+
+def update_all_db(existing_user, email, password, first_name, last_name, birth, gender, orga, url, facebook_profil_url, facebook_profil_page, license,
+                  mobile, xp, main_review, secondary_email, photo, description, state, country_first, country_second, langue, langue_second, langue_third,
+                  langue_fourth, langue_fifth, type, type_second, type_third)
+  update_user(existing_user)
+  guide = update_guide(existing_user)
+  #Set language array
+  languages = []
+  languages << langue
+  languages << langue_second unless langue_second.nil?
+  languages << langue_third unless langue_third.nil?
+  languages << langue_fourth unless langue_fourth.nil?
+  languages << langue_fifth unless langue_fifth.nil?
+  update_spoken_language(guide, languages)
+
+  #Set speciality array
+  specialities = []
+  specialities << type
+  specialities << type_second unless type_second.nil?
+  specialities << type_third unless type_third.nil?
+  update_speciality_offering(guide, specialities)
+
+  #set countries array
+  countries = []
+  countries << country_first
+  countries << country_second unless country_second.nil?
+  update_country_offering(guide, countries)
+
+end
+
+def update_country_offering(guide, countries)
+  guide.country_offerings.each do |country_offering|
+    countries.each do |c|
+      country = Country.find_by(name: c)
+      country_offering.update!(
+        guide_id: guide.id,
+        country_id: country.id
+      )
+    end
+  end
+end
+
+
+def update_speciality_offering(guide, specialities)
+  guide.guide_specialities.each do |guide_specialitie|
+    specialities.each do |s|
+      speciality = Speciality.find_by(name: s)
+      guide_specialitie.update!(
+        guide_id: guide.id,
+        speciality_id: speciality.id
+      )
+    end
+  end
+end
+
+def update_spoken_language(guide, languages)
+  guide.spoken_languages.each do |spoken_language|
+    languages.each do |l|
+      language = Language.find_by(name: l.strip)
+      spoken_language.update!(
+        guide_id: guide.id,
+        language_id: language.id
+      )
+    end
+  end
+end
+
+def update_guide(existing_user)
+  guide = existing_user.guide
+  guide.update!(
+  guide_organization_id: guide.guide_organization_id,
+  guide_contact_info_id: guide.guide_contact_info_id,
+  user_id: existing_user.id,
+  description: guide.description,
+  main_photo: guide.main_photo,
+  state: guide.state
+  )
+  guide
+end
+
+
+def update_user(existing_user)
+    existing_user.update!(
+    email: existing_user.email,
+    password: existing_user.password,
+    first_name: existing_user.first_name,
+    last_name: existing_user.last_name,
+    year_of_birth: existing_user.year_of_birth,
+    gender: existing_user.gender
+    )
+end
+
+def create_row_on_db(id, email, password, first_name, last_name, birth, gender, orga, url, facebook_profil_url, facebook_profil_page, license,
+              mobile, xp, main_review, secondary_email, photo, description, state, country_first, country_second, langue, langue_second, langue_third,
+              langue_fourth, langue_fifth, type, type_second, type_third)
+
+  user = create_user(id, email, password, first_name, last_name, birth, gender)
+  organization = create_organization(orga, url, facebook_profil_url, facebook_profil_page, license)
+  contact_info = create_guide_contact_info(mobile, xp, main_review, secondary_email)
+  guide = create_guide(organization, contact_info, user, photo, description, state)
+
+  #Create countries assosiations
+  countries = []
+  countries << country_first
+  countries << country_second unless country_second.nil?
+  create_country_offering(guide, countries)
+
+  #Create speciality assosiations
+  specialities = []
+  specialities << type
+  specialities << type_second unless type_second.nil?
+  specialities << type_third unless type_third.nil?
+  create_speciality_offering(guide, specialities)
+
+  #Create language assosiations
+  languages = []
+  languages << langue
+  languages << langue_second unless langue_second.nil?
+  languages << langue_third unless langue_third.nil?
+  languages << langue_fourth unless langue_fourth.nil?
+  languages << langue_fifth unless langue_fifth.nil?
+  create_spoken_language(guide, languages)
+end
 
 def create_spoken_language(guide, languages)
   languages.each do |l|
@@ -106,9 +213,8 @@ def create_country_offering(guide, countries)
   end
 end
 
-def create_guide(id, organization, contact_info, user, photo, description, state)
+def create_guide(organization, contact_info, user, photo, description, state)
   guide = Guide.create(
-  id: id,
   guide_organization_id: organization.id,
   guide_contact_info_id: contact_info.id,
   user_id: user.id,
@@ -140,14 +246,15 @@ def create_organization(orga, url, facebook_profil_url, facebook_profil_page, li
   orga
 end
 
-def create_user(email, password, first_name, last_name, birth, gender)
+def create_user(id, email, password, first_name, last_name, birth, gender)
   user = User.create(
     email: email,
     password: password,
     first_name: first_name,
     last_name: last_name,
     year_of_birth: birth,
-    gender: gender
+    gender: gender,
+    xlsx_id: id
     )
   user
 end

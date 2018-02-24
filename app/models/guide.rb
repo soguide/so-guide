@@ -2,7 +2,7 @@ class Guide < ApplicationRecord
   belongs_to :guide_organization, optional: true
   belongs_to :guide_contact_info, optional: true
   belongs_to :user
-  has_one  :country_offering, dependent: :destroy
+  has_many  :country_offerings, dependent: :destroy
   has_many  :guide_specialities, dependent: :destroy
   has_many  :guide_reviews, dependent: :destroy
   has_many  :spoken_languages, dependent: :destroy

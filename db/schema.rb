@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(version: 20180224204026) do
     t.string "first_name"
     t.string "last_name"
     t.string "year_of_birth"
+    t.integer "xlsx_id"
     t.string "gender"
     t.boolean "admin"
     t.string "reset_password_token"
