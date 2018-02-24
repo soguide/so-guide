@@ -1,0 +1,2 @@
+class GuideContactInfo < ApplicationRecord
+end

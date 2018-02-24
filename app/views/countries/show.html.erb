@@ -1,0 +1,100 @@
+<div class="banner-country" style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0,0,0,0.2)),url('<%=  cl_image_path @country.country_photo.main, crop: :fill %>')">
+    <div class="banner-content">
+        <h1 class="title-contries"> <%= @country.name %> </h1>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="padded"></div>
+        <div class="col-md-8">
+            <div class="guide-car-wrapper">
+              <% @guides.each do |g | %>
+              <div class="card-guide">
+                <div class="guide-car-left-part">
+                    <div class="pic-guide-left-part guide-show-pic-countries" id="card-pic-guide" style="background-image:url('<%= g.guide.main_photo %>')">
+                    </div>
+                </div>
+                <%= link_to guide_path(g.guide) do %>
+                <div class="guide-car-right-part">
+                  <div class="up-part-flexed" style="display: flex;justify-content: space-between;">
+                  <div class="title-guide-right-part">
+                  <h3 style="margin:0px;font-weight: 500;"> <%= g.guide.user.first_name.capitalize %> <%= g.guide.user.last_name %> </h3>
+                  </div>
+                  <div class="flag-guide-right-part">
+                    <% g.guide.spoken_languages.each do |l| %>
+                    <%= cl_image_tag "http://res.cloudinary.com/dgq8rxb4v/image/upload/v1511622088/Flag_#{l.language.name}.png", alt: "", class:"img-flag" %>
+                    <% end %>
+                  </div>
+                  </div>
+                  <div class="region-guide-right-part">
+                  <p style="font-size: 14px;"> <span style="color:#099c03">Régions :</span><%= g.guide.state %></p>
+                  </div>
+                  <div class="comment-guide-right-part">
+                    <p style="font-size: 14px;"> <span style="color:#099c03"> D'après ses clients :</span>
+                      <%= g.guide.description %>
+                    </p>
+
+                  </div>
+                  <div class="down-part-flexed" style="display: flex;justify-content: space-between;">
+                  <% g.guide.guide_specialities.each do |l| %>
+                  <span><%= image_tag "#{l.speciality.name}.png", class:"mini-picto" %></span>
+                  <% end %>
+                  <% end %>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3" style="background: white;display: flex;margin-top: 20px;height: 100%;box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 -1px 6px rgba(0, 0, 0, 0.23);flex-direction: column;align-content: center;">
+          <div class="description-up-right-part" style="padding:6%;display: flex;flex-direction: column;justify-content: space-between;">
+          <p style="font-size: 14px;color:black;"> <%= @country.description %> </p>
+          <div class="padded" style="padding-bottom: 4%;"></div>
+          <div style="display: flex;justify-content: center;">
+            <button type="button" class="btn-default" id="go-down">En savoir plus</button>
+          </div>
+          </div>
+          <div class="padded" style="padding-bottom: 5%"></div>
+          <div class="photo-up-right-part" style="width: 111.5%;margin-left: -15px;background-image:url('<%= cl_image_path @country.country_photo.second, crop: :fill  %>')">
+          </div>
+          <div class="when-box" style="background-image:url('<%= asset_path("When_Afrique_du_Sud_1.png") %>')">
+          </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="test" id="im-down"></div>
+<div class="padded-little"></div>
+<div class="container" style="width: 100%;">
+  <div class="row">
+    <div class="col-md-6 country-page-left-btm-part" style="background: linear-gradient(-225deg, rgba(30, 30, 30, 0.53) 30%, rgba(46, 46, 46, 0.87) 80%);color: white;font-weight: 300;font-size: 15px;">
+      <h3 style="color:white;">Un peu d'histoire et de culture !</h3>
+      <p><%= @country.description %></p>
+    </div>
+    <div class="col-md-6 photo-btm-right-part" style="background-image:url('<%= cl_image_path @country.country_photo.third, crop: :fill  %>')">
+    </div>
+    <div class="col-md-6 photo-btm-right-part" style="background-image:url('<%= cl_image_path @country.country_photo.fourth, crop: :fill  %>')">
+    </div>
+    <div class="col-md-6 country-page-left-btm-part" style="font-weight: 300;font-size: 15px;">
+      <h3 style="">Les choses à voir et visiter !</h3>
+      <p><%= @country.best_period %></p>
+    </div>
+  </div>
+</div>
+
+
+
+<% content_for(:after_js) do %>
+  <%= javascript_tag do %>
+      $(document).ready(function() {
+        $("#go-down").click(function() {
+            $('html,body').animate({
+                scrollTop: $("#im-down").offset().top},
+                'slow');
+        });
+      });
+  <% end %>
+<% end %>

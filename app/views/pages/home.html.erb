@@ -1,2 +1,73 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<%= render "banner" %>
+<div class="container">
+  <div class="row text-center">
+    <div class="col-md-12 partenaires-wrapper second-part">
+    <%= link_to "http://www.capcampus.com/campus-live-474/en-voyage-suivez-le-guide-oui-mais-lequel-a37740.html", target: :_blank  do %>
+    <%= image_tag "Logo-Cap-Campus.jpg", class: "logo-partenaire" %>
+    <% end %>
+    <%= link_to "http://earlyadoptersparis.com/soguide-une-plateforme-de-voyage-pour-contacter-des-guides-locaux-a-letranger-284", target: :_blank  do %>
+    <%= image_tag "Logo-Early-Adopters.jpg", class: "logo-partenaire" %>
+    <% end %>
+    <%= link_to "http://www.tourmag.com/SoGuide-veut-aider-les-guides-touristiques-dans-les-pays-en-developpement_a79034.html", target: :_blank  do %>
+    <%= image_tag "Logo-I-tourisme.jpg", class: "logo-partenaire" %>
+    <% end %>
+    <%= link_to "http://www.quotidiendutourisme.com/site/blog-a-part-destination-production-profession-site/production-collaboratif-soguide-com-pour-trouver-un-guide-touristique-a-son-pied-97325.html", target: :_blank  do %>
+    <%= image_tag "Logo-Le-Quotidien.jpg", class: "logo-partenaire" %>
+    <% end %>
+    <%= link_to "http://www.levoyageur.net/article-soguide-une-communaute-de-partage-349.html#.Wa7vBkpJa2x", target: :_blank  do %>
+    <%= image_tag "Logo-Le-Voyageur.jpg", class: "logo-partenaire" %>
+    <% end %>
+    <%= link_to "http://www.levoyageur.net/article-soguide-une-communaute-de-partage-349.html#.Wa7vBkpJa2x", target: :_blank  do %>
+    <%= image_tag "Logo-voyager-mag.jpg", class: "logo-partenaire" %>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<%= render "mid-banner" %>
+
+
+<div class="container">
+  <div class="row text-center">
+      <h3>Astuces & Conseils</h3>
+
+    <div class="col-md-4 card-menu">
+    <div class="card-menu-body">
+    <%= link_to pages_a_savoir_path do %>
+      <%= image_tag asset_path("rome-image-gallery-7-300x200.jpg"), class: "img-card-menu"%>
+
+      <h3 class="title-link">Préparer son voyage</h3>
+      <p>L’équipe SoGuide a répertorié pour vous 7 questions à se poser pour préparer au mieux son voyage avec un guide.</p>
+    <% end %>
+    </div>
+    </div>
+
+    <div class="col-md-4 card-menu">
+    <div class="card-menu-body">
+    <%= link_to pages_a_savoir_path do %>
+      <%= image_tag asset_path("machu-picchu-image-gallery-4-300x200.jpg"), class: "img-card-menu"%>
+
+      <h3 class="title-link">Le Concept</h3>
+      <p>Découvrez comment d’un besoin puis d’un constat nous sommes arrivés à l’idée de So Guide.</p>
+    <% end %>
+    </div>
+    </div>
+
+    <div class="col-md-4 card-menu">
+    <div class="card-menu-body">
+    <%= link_to pages_a_savoir_path do %>
+      <%= image_tag asset_path("http://www.so-guide.com/dev/wp-content/uploads/2016/04/spain-image-gallery-11-300x200.jpg"), class: "img-card-menu"%>
+
+      <h3 class="title-link">La Communauté</h3>
+      <p>Faites vivre la communauté SoGuide en partageant votre expérience sur les réseaux sociaux</p>
+    <% end %>
+    </div>
+    </div>
+  </div>
+
+<div class="padded-little"></div>
+</div>
+
+<div class="padded-little"></div>
+</div>
+<div class="padded-little"></div>

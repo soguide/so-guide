@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  structure_website: MyString
+  facebook_profil_url: MyString
+  facebook_structure_url: MyString
+  license: MyString
+
+two:
+  structure_website: MyString
+  facebook_profil_url: MyString
+  facebook_structure_url: MyString
+  license: MyString

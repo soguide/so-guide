@@ -1,0 +1,136 @@
+
+h3 {
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 300;
+    color: #303030;
+    line-height: 1.3em;
+}
+
+
+
+#map_canvas {
+    position: fixed;
+    right: 0;
+    top: 0;
+    margin:10px;
+}
+
+a {
+  text-decoration:none;
+}
+
+a.fa {
+  text-decoration: none;
+}
+// Paddings
+.padded {
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+.padded-little {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+.btn-default {
+    color: white;
+    background: #005300;
+    padding: 5px 5px;
+    border-radius: 50px;
+    font-weight: lighter;
+    opacity: 1;
+    cursor: pointer;
+    width: 70%;
+}
+.btn-default:hover {
+  text-decoration: none;
+  color: white;
+  opacity: 0.9;
+  background: #005300;
+}
+
+.padded {
+  padding: 1%;
+}
+
+.btn-default-banner {
+    color: white;
+    border: 1px solid white;
+    padding: 10px 7px;
+    font-weight: lighter;
+    opacity: 1;
+    cursor: pointer;
+    font-family: Raleway;
+    background: #9cba5f;
+    transition: 1.5s;
+
+}
+.btn-default-banner:hover {
+  text-decoration: none;
+  background-color: #ef4b5e!important;
+  cursor: pointer;
+  font-family: Raleway;
+  transition: 1s;
+}
+
+
+.search-banner {
+    padding: 11px 13px;
+    color: black;
+    border: 1px solid white;
+    border: 1px white;
+    margin-right: -5px;
+}
+
+.green {
+  color:#008489;
+}
+
+.weighted {
+  font-weight: 700;
+}
+
+.alert {
+  color: white;
+    background: #a94442;
+}
+
+.btn-primary {
+      border-color: #ff5a5f;
+    background-color: #ff5a5f;
+    color: #fff;
+    padding: 13px;
+    margin-top: 10px;
+
+}
+
+
+.dot-message {
+      border: solid 1px #9cb95f;
+    background: #9cb95f;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    right: 15px;
+}
+
+.number-message {
+  color: white;
+    position: relative;
+    top: -3px;
+    left: 4px;
+}
+
+.text-message-preview a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.68);
+}
+
+.btn-default:focus {
+  text-decoration: none;
+  color: white;
+  opacity: 0.9;
+  background: #005300;
+}

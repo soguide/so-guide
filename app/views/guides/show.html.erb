@@ -1,0 +1,125 @@
+<div class="padded-little"></div>
+<div class="padded"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-guide-show" style="box-shadow: 0 3px 64px rgba(0, 0, 0, 0.16), 0 3px 60px rgba(0, 0, 0, 0.23);">
+                <div class="guide-car-left-part">
+                    <% guide_picture = @guide.user.facebook_picture_url || @guide.main_photo %>
+                    <div class="pic-guide-left-part guide-show-pic" style="background-image:url('<%= cl_image_path guide_picture, crop: :fill %>')">
+                    </div>
+                </div>
+                <div class="guide-car-right-part" style="border-bottom: 1px solid rgba(0,0,0,0.08);background: white;color: black;">
+                    <div class="up-part-flexed" style="display: flex;justify-content: space-between;">
+                        <div class="title-guide-right-part">
+                            <h3 style="margin:0px;font-weight: 800;font-size: 34px;"> <%= @guide.user.first_name.capitalize %> <%= @guide.user.last_name %> </h3>
+                        </div>
+                    </div>
+                  <div class="flexed">
+                    <div class="left-part-card-guide">
+                    <div class="region-guide-right-part" style="align-items:center;display: flex;justify-content: left;">
+                        <%= image_tag 'map.png', class:'picto-guide' %>
+                            <p style="font-size: 14px;"> <span style="color:#099c03;font-size: 16px;">Type de guide :</span>
+                              <% @guide_specialities.each do |g| %>
+                              <%= g.speciality.name %>
+                              <% end %>
+                              </p>
+                    </div>
+                    <div class="region-guide-right-part" style="align-items:center;display: flex;justify-content: left;">
+                        <%= image_tag 'map.png', class:'picto-guide' %>
+                            <p style="font-size: 14px;"> <span style="color:#099c03;font-size: 16px;">Régions :</span>
+                              <%= @guide.state %>
+                            </p>
+                    </div>
+                    <div class="region-guide-right-part flag-guide-right-part" style="align-items:center;display: flex;justify-content: left;">
+                      <%= image_tag 'map.png', class:'picto-guide' %>
+                      <p style="font-size: 14px;"> <span style="color:#099c03;font-size: 16px;">Langues :</span>
+                    <% @guide.spoken_languages.each do |l| %>
+                          <%= l.language.name %>
+                    <% end %>
+                      </p>
+
+                          </p>
+                    </div>
+                    </div>
+                    <div class="right-part-card-guide">
+                    <div class="region-guide-right-part" style="align-items:center;display: flex;justify-content: left;">
+                        <%= image_tag 'degree.png', class:'picto-guide' %>
+                            <p style="font-size: 14px;"> <span style="color:#099c03;font-size: 16px;">Expérience :</span>
+                                <%= @guide.guide_contact_info.years_experience %> ans</p>
+                    </div>
+                    <div class="region-guide-right-part" style="align-items:center;display: flex;justify-content: left;">
+                        <%= image_tag 'degree.png', class:'picto-guide' %>
+                            <p style="font-size: 14px;"> <span style="color:#099c03;font-size: 16px;">License :</span>
+                                <%= @guide.guide_organization.license %>
+                            </p>
+                    </div>
+                    <div class="region-guide-right-part" style="align-items:center;display: flex;justify-content: left;">
+                        <%= image_tag 'degree.png', class:'picto-guide' %>
+                            <p style="font-size: 14px;"> <span style="color:#099c03;font-size: 16px;">Associés :</span> Incomming soon !</p>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row" style="margin-bottom: 5%">
+        <div class="col-md-6">
+            <h3 style="color:#099c03;padding-left:2%; font-weight: 400;">Contacter ce guide !</h3>
+              <div class="contact-form-guide-show">
+                <% unless current_user %>
+                <p>Veuillez vous connecter pour contacter ce guide !</p>
+                  <button type="button" class="btn-first" data-toggle="modal" data-target="#myModal">
+                    <span>Se connecter</span>
+                  </button>
+                <% end %>
+              </div>
+        </div>
+        <div class="col-md-6">
+          <div class="guide-video-square">
+            <iframe width="555" height="290" src="https://www.youtube.com/embed/TPdZvFuR8Ew" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+        <h3 style="color:#099c03;padding:2%; font-weight: 400;">Ils ont voyagé avec guide et le recommandent !</h3>
+        <div class="col-md-12 all-messages-guide-show">
+            <% @guide_reviews.each do |guidereview| %>
+              <div class="col-md-12">
+                <div class="message" style="border-bottom: 1px solid #80808054;">
+                  <%= image_tag "#{guidereview.traveler.user.facebook_picture_url}", class: "avatar-small rounded"%>
+                <div class="message-body">
+                  <p>
+                    <span class="green" style="font-weight: 500;">
+                      <%= guidereview.traveler.user.first_name %> <%= guidereview.traveler.user.first_name %>,
+                    </span>
+                  <%= guidereview.review.fake_date.strftime("%e %b %Y") %> : </p>
+                  <p style="color:black;white-space: pre-line;"><%= guidereview.review.content %></p>
+                </div>
+                </div>
+              </div>
+            <% end %>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h3 style="color:#099c03;padding:2%; font-weight: 400;">Vous souhaitez contacter d'autres guides en <%= @guide.country_offering.country.name %></h3>
+          </div>
+          <div class="col-md-12">
+            <% @other_guide.each do |guide| %>
+              <div class="col-md-3 card-wrapper">
+                <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),url('<%= guide.main_photo %>')">
+                  <div class="card-category">
+                  </div>
+                  <div class="card-description">
+                  </div>
+                  <%= link_to "", guide_path(guide), class:"card-link" %>
+                </div>
+                <p class="index-card-title"></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+    </div>
+</div>
+<%= render 'shared/log_in_modal' %>

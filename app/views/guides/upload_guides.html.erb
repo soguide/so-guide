@@ -1,0 +1,5 @@
+  <%= form_tag(post_upload_guides_path, method: "post", multipart: true) do %>
+    <%= file_field_tag :xlsx, accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %>
+    <i class="fa fa-arrow-up" style="font-size: 49px;"></i>
+    <%= submit_tag "Importer mon xlsx", class: 'submit-upload-file' %>
+  <% end %>

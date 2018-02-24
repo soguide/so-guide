@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mobile_phone: MyString
+  years_experience: 1
+  main_review: MyString
+  secondary_email: MyString
+
+two:
+  mobile_phone: MyString
+  years_experience: 1
+  main_review: MyString
+  secondary_email: MyString

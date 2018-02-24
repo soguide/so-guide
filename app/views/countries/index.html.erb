@@ -1,0 +1,23 @@
+<div class="padded-little"></div>
+<div class="padded-little"></div>
+<div class="container">
+  <div class="row" style="text-align: center;">
+    <div class="col-md-12 col-xs-12">
+        <h3 class="title-index">Choisissez votre destination et découvrez nos guides !</h3>
+        <p class="sub-title-index">Nous vous proposons de choisir un de nos 100 guides parmi 16 destinations. Sélectionnez un pays pour avoir des informations essentielles comme connaître la meilleure période pour le visiter.</p>
+          <div class="padded-little"></div>
+          <% @countries.order("name").each do | country | %>
+            <div class="col-md-3 col-xs-12 card-wrapper country">
+              <div class="card" style="background-image:url('<%= cl_image_path country.country_photo.main, crop: :fill  %>')">
+                <div class="card-category">
+                  <p><%= country.name %> </p>
+                </div>
+                <div class="card-description">
+                </div>
+                <%= link_to "", country_path(country), class:"card-link" %>
+              </div>
+            </div>
+        <% end %>
+    </div>
+  </div>
+</div>
